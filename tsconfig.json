@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		// "esModuleInterop": true,
+		"moduleResolution": "node",
+		"strict": true,
+		"target": "es5", // lowest build target, see tsup.config.ts
+	},
+	"include": [
+		"src/**/*.ts"
+	],
+}
