@@ -23,12 +23,20 @@ const csp = new ContentSecurityPolicy({
 	logger: console
 })
 	.remove(SCRIPT_SRC, NONE)
-	.append(SCRIPT_SRC, UNSAFE_INLINE)
+	.append(SCRIPT_SRC, UNSAFE_INLINE);
+
+const cspHeaderString = csp.toString();
+
+const headers = {
+	'content-security-policy': cspHeaderString;
+};
+
+const cspToModify = ContentSecurityPolicy.parse(cspHeaderString)
 	.replace(SCRIPT_SRC, UNSAFE_INLINE, nonce(randomString))
 	.prepend(SCRIPT_SRC, sha256(sha256sumString));
 
-const headers = {
-	'content-security-policy': csp.toString();
+const betterHeaders = {
+	'content-security-policy': cspToModify.toString();
 };
 ```
 
