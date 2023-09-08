@@ -14,7 +14,7 @@ import {
 	ContentSecurityPolicy,
 	type ContentSecurityPolicyLogger,
 	sha256
-}
+} from '@enonic/csp';
 
 const csp = new ContentSecurityPolicy({
 	'default-src': [NONE],
