@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@enonic/js-utils':
-    specifier: ^1.5.4
-    version: 1.5.4
+    specifier: ^1.6.1
+    version: 1.6.1
   '@jest/globals':
     specifier: ^29.6.4
     version: 29.6.4
@@ -392,8 +392,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@enonic/js-utils@1.5.4:
-    resolution: {integrity: sha512-mGAxXhhzveZlbmK95MAopNRky1S1+8raeisgltdHg673odyOe6vTYijHVSJFsJdnnoU2hsAbaPh5EDTT3MxNSw==}
+  /@enonic/js-utils@1.6.1:
+    resolution: {integrity: sha512-OX5rmLTT5h6TOXBj+9KiWh1tgOTPUwEmJyrc+vV47x5hZv6ormTlOWi7V744CfLXcYwvC83dOvPTiz/IRTYeTA==}
     dev: true
 
   /@esbuild/android-arm64@0.18.20:

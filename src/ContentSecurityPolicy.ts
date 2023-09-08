@@ -6,6 +6,7 @@ import type {
 
 import { includes as arrayIncludes } from '@enonic/js-utils/array/includes';
 import { toStr } from '@enonic/js-utils/value/toStr';
+import { entries } from '@enonic/js-utils/object/entries';
 import { forceArray } from '@enonic/js-utils/array/forceArray';
 import { isDirective } from './isDirective';
 import { Keyword } from './Keyword';
@@ -66,13 +67,13 @@ export class ContentSecurityPolicy {
 		logger?: ContentSecurityPolicyLogger
 	} = {}) {
 		this.logger = logger;
-		Object.entries(directives).forEach(([directive, values]) => {
-			const lcDirective = directive.toLowerCase();
+		entries(directives).forEach(([directive, values]) => {
+			const lcDirective = String(directive).toLowerCase();
 			if (!isDirective(lcDirective)) {
 				this.logger.warn(`Skipping Unsupported directive: "%s"!`, directive);
 			} else {
 				const normalizedValues: string[] = [];
-				forceArray(values).forEach(
+				forceArray(values as string[]).forEach(
 					v => v.split(/[ \t\n\r\f]+/)
 						.forEach(v => normalizedValues.push(normalizeDirectiveValue(v)))
 				); // split on ascii-whitespace
@@ -175,14 +176,18 @@ export class ContentSecurityPolicy {
 	// TODO: implement union?
 
 	toString() {
-		return Object.entries(this.directives)
-			.map(([directive, values]) => `${directive} ${values.join(' ')}`)
+		return entries(this.directives)
+			.map(([directive, values]) => `${String(directive)} ${(values as string[]).join(' ')}`)
 			.join('; ');
 	} // toString
 
 	checkDirective(directive: Directive) {
-		const lcDirective = directive.toLowerCase();
-		if (this.directives[lcDirective].length > 1 && arrayIncludes(this.directives[lcDirective], Keyword.NONE)) {
+		const lcDirective = directive.toLowerCase() as Directive;
+		if (
+			Array.isArray(this.directives[lcDirective])
+			&& (this.directives[lcDirective] as string[]).length > 1
+			&& arrayIncludes(this.directives[lcDirective] as string[], Keyword.NONE)
+		) {
 			this.logger.warn(`Directive "%s" is illegal! it contains 'none' and other values! %s`, lcDirective, toStr(this.directives[lcDirective]));
 		}
 		return this;

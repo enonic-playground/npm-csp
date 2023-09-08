@@ -1,7 +1,8 @@
 {
 	"compilerOptions": {
-		// "esModuleInterop": true,
 		"moduleResolution": "node",
+		"noImplicitAny": false,
+		"skipLibCheck": true,
 		"strict": true,
 		"target": "es5", // lowest build target, see tsup.config.ts
 	},

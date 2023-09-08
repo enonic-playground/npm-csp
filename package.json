@@ -2,7 +2,7 @@
   "author": "Christian Andreas Westgaard <cwe@enonic.com>",
   "description": "Content Security Policy (CSP) Utils",
   "devDependencies": {
-    "@enonic/js-utils": "^1.5.4",
+    "@enonic/js-utils": "^1.6.1",
     "@jest/globals": "^29.6.4",
     "@swc/core": "^1.3.83",
     "concurrently": "^8.2.1",
