@@ -4,43 +4,43 @@
 
 Install with npm:
 
-	npm i @enonic/csp
+  npm i @enonic/csp
 
 Use in code:
 
 ```typescript
 import {
-	NONE,
-	SCRIPT_SRC,
-	UNSAFE_INLINE,
-	ContentSecurityPolicy,
-	type ContentSecurityPolicyLogger,
-	sha256
+  NONE,
+  SCRIPT_SRC,
+  UNSAFE_INLINE,
+  ContentSecurityPolicy,
+  type ContentSecurityPolicyLogger,
+  sha256
 } from '@enonic/csp';
 
 const csp = new ContentSecurityPolicy({
-	'default-src': [NONE],
-	'script-src': [NONE]
+  'default-src': [NONE],
+  'script-src': [NONE]
 }, {
-	logger: console // optional, default is no logging
+  logger: console // optional, default is no logging
 })
-	.remove(SCRIPT_SRC, NONE)
-	.append(SCRIPT_SRC, UNSAFE_INLINE);
+  .remove(SCRIPT_SRC, NONE)
+  .append(SCRIPT_SRC, UNSAFE_INLINE);
 
 const cspHeaderString = csp.toString();
 
 const headers = {
-	'content-security-policy': cspHeaderString;
+  'content-security-policy': cspHeaderString;
 };
 
 const cspToModify = ContentSecurityPolicy.parse(cspHeaderString, {
-	logger: console // optional, default is no logging
+  logger: console // optional, default is no logging
 })
-	.replace(SCRIPT_SRC, UNSAFE_INLINE, nonce(randomString))
-	.prepend(SCRIPT_SRC, sha256(sha256sumString));
+  .replace(SCRIPT_SRC, UNSAFE_INLINE, nonce(randomString))
+  .prepend(SCRIPT_SRC, sha256(sha256sumString));
 
 const betterHeaders = {
-	'content-security-policy': cspToModify.toString();
+  'content-security-policy': cspToModify.toString();
 };
 ```
 
