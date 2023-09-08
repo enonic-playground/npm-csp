@@ -20,7 +20,7 @@ const csp = new ContentSecurityPolicy({
 	'default-src': [NONE],
 	'script-src': [NONE]
 }, {
-	logger: console
+	logger: console // optional, default is no logging
 })
 	.remove(SCRIPT_SRC, NONE)
 	.append(SCRIPT_SRC, UNSAFE_INLINE);
@@ -31,7 +31,9 @@ const headers = {
 	'content-security-policy': cspHeaderString;
 };
 
-const cspToModify = ContentSecurityPolicy.parse(cspHeaderString)
+const cspToModify = ContentSecurityPolicy.parse(cspHeaderString, {
+	logger: console // optional, default is no logging
+})
 	.replace(SCRIPT_SRC, UNSAFE_INLINE, nonce(randomString))
 	.prepend(SCRIPT_SRC, sha256(sha256sumString));
 
