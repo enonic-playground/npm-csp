@@ -124,6 +124,23 @@ export class ContentSecurityPolicy {
 		return this.checkDirective(directive);
 	} // prepend
 
+	remove(directive: Directive, value: string|string[]) {
+		const lcDirective = directive.toLowerCase();
+		if (!isDirective(lcDirective)) {
+			this.logger.warn(`Unsupported directive: "%s"!`, directive);
+			return this;
+		}
+		if(!this.directives[lcDirective]) {
+			return this;
+		}
+		const values = forceArray(value);
+		for (let i = 0; i < values.length; i++) {
+			const normalizedValue = normalizeDirectiveValue(values[i]);
+			this.directives[lcDirective] = (this.directives[lcDirective] as string[]).filter(v => v !== normalizedValue);
+		} // for
+		return this;
+	} // remove
+
 	// To replace within an ordered set set, given item and replacement:
 	// if set contains item or replacement,
 	// then replace the first instance of either with replacement and remove all other instances.
