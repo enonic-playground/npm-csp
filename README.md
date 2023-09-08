@@ -26,6 +26,10 @@ const csp = new ContentSecurityPolicy({
 	.append(SCRIPT_SRC, UNSAFE_INLINE)
 	.replace(SCRIPT_SRC, UNSAFE_INLINE, nonce(randomString))
 	.prepend(SCRIPT_SRC, sha256(sha256sumString));
+
+const headers = {
+	'content-security-policy': csp.toString();
+};
 ```
 
 ## Release
