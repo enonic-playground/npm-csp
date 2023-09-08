@@ -2,9 +2,11 @@
 
 ## Usage
 
-Install with npm
+Install with npm:
 
 	npm i @enonic/csp
+
+Use in code:
 
 ```typescript
 import {
